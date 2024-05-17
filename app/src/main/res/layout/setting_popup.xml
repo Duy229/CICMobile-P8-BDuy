@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Cài đặt"
+        android:textColor="#0065a1"
+        android:textSize="24sp"
+        android:layout_marginTop="16dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:textColor="#000000"
+        android:textStyle="italic"
+        android:layout_marginTop="48dp"
+        android:textSize="16sp"
+        android:text="Phiên bản: "/>
+    <Button
+        android:id="@+id/config"
+        style="@style/loginButton"
+        android:layout_width="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:elevation="1dp"
+        android:text="Cấu hình xác thực"
+        android:textSize="16dp" />
+
+    <Button
+        android:id="@+id/websocket"
+        style="@style/loginButton"
+        android:layout_width="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:elevation="1dp"
+        android:text="Cấu hình CICServer"
+        android:textSize="16dp" />
+
+    <Button
+        android:id="@+id/update"
+        style="@style/loginButton"
+        android:layout_width="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:elevation="1dp"
+        android:text="Cập nhật phiên bản"
+        android:textSize="16dp" />
+
+    <Button
+        android:id="@+id/logout"
+        style="@style/logout"
+        android:layout_width="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:elevation="1dp"
+        android:text="Đăng xuất"
+        android:textSize="16dp" />
+
+</LinearLayout>

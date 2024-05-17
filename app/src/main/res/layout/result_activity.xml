@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:scaleType="centerCrop"
+    tools:context="com.umut.soysal.ui.ResultActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="0dp"
+        android:paddingBottom="60dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/view_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:contentDescription="TODO"
+                tools:ignore="ContentDescription,HardcodedText,ImageContrastCheck"
+                tools:src="@drawable/photo" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:baselineAligned="false"
+                android:divider="@drawable/linear_divider"
+                android:orientation="vertical"
+                android:showDividers="middle">
+
+                <!-- Dòng 1 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@drawable/linear_divider"
+                    android:gravity="left"
+                    android:orientation="horizontal"
+                    android:showDividers="middle">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:text="@string/result_cardNumber"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/output_card_number"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        tools:text="" />
+                </LinearLayout>
+
+                <!-- Dòng 2 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@drawable/linear_divider"
+                    android:gravity="left"
+                    android:orientation="horizontal"
+                    android:showDividers="middle">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:text="@string/result_oldCardNumber"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/output_old_card_number"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        tools:text="" />
+                </LinearLayout>
+
+                <!-- Dòng 3 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@drawable/linear_divider"
+                    android:gravity="left"
+                    android:orientation="horizontal"
+                    android:showDividers="middle">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:text="@string/result_fullName"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/output_full_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        tools:text="" />
+                </LinearLayout>
+
+                <!-- Dòng 4 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@drawable/linear_divider"
+                    android:gravity="left"
+                    android:orientation="horizontal"
+                    android:showDividers="middle">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:text="@string/result_dateOfBirth"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/output_date_of_birth"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        tools:text="" />
+                </LinearLayout>
+
+                <!-- Dòng 5 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@drawable/linear_divider"
+                    android:gravity="left"
+                    android:orientation="horizontal"
+                    android:showDividers="middle">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:text="@string/result_placeOfOrigin"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/output_place_of_origin"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        tools:text="" />
+                </LinearLayout>
+
+                <!-- Dòng 6 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@drawable/linear_divider"
+                    android:gravity="left"
+                    android:orientation="horizontal"
+                    android:showDividers="middle">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:text="@string/result_placeOfResidence"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/output_place_of_residence"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        tools:text="" />
+                </LinearLayout>
+
+                <!-- Dòng 7 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@drawable/linear_divider"
+                    android:gravity="left"
+                    android:orientation="horizontal"
+                    android:showDividers="middle">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:text="@string/result_sex"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/output_sex"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        tools:text="" />
+                </LinearLayout>
+
+                <!-- Dòng 8 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@drawable/linear_divider"
+                    android:gravity="left"
+                    android:orientation="horizontal"
+                    android:showDividers="middle">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:text="@string/result_dateOfIssue"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/output_date_of_issue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        tools:text="" />
+                </LinearLayout>
+
+                <!-- Dòng 9 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@drawable/linear_divider"
+                    android:gravity="left"
+                    android:orientation="horizontal"
+                    android:showDividers="middle">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:text="@string/result_dateOfExpiry"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/output_date_of_expiry"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        tools:text="" />
+                </LinearLayout>
+
+                <!-- Dòng 10 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@drawable/linear_divider"
+                    android:gravity="left"
+                    android:orientation="horizontal"
+                    android:showDividers="middle">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:text="@string/result_ethnicity"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/output_ethnicity"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        tools:text="" />
+                </LinearLayout>
+
+                <!-- Dòng 11 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@drawable/linear_divider"
+                    android:gravity="left"
+                    android:orientation="horizontal"
+                    android:showDividers="middle">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:text="@string/result_religion"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/output_religion"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        tools:text="" />
+                </LinearLayout>
+
+                <!-- Dòng 12 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@drawable/linear_divider"
+                    android:gravity="left"
+                    android:orientation="horizontal"
+                    android:showDividers="middle">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:text="@string/result_nationality"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/output_nationality"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        tools:text="" />
+                </LinearLayout>
+
+                <!-- Dòng 13 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@drawable/linear_divider"
+                    android:gravity="left"
+                    android:orientation="horizontal"
+                    android:showDividers="middle">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:text="@string/result_personalIdentification"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/output_personal_identification"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        tools:text="" />
+                </LinearLayout>
+
+                <!-- Dòng 14 -->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:divider="@drawable/linear_divider"-->
+<!--                    android:gravity="left"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:showDividers="middle">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1.5"-->
+<!--                        android:text="@string/result_fatherName"-->
+<!--                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/output_father_name"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="4"-->
+<!--                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"-->
+<!--                        tools:text="" />-->
+<!--                </LinearLayout>-->
+
+<!--                &lt;!&ndash; Dòng 15 &ndash;&gt;-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:divider="@drawable/linear_divider"-->
+<!--                    android:gravity="left"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:showDividers="middle">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1.5"-->
+<!--                        android:text="@string/result_motherName"-->
+<!--                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/output_mother_name"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="4"-->
+<!--                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"-->
+<!--                        tools:text="" />-->
+<!--                </LinearLayout>-->
+
+<!--                &lt;!&ndash; Dòng 16 &ndash;&gt;-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:divider="@drawable/linear_divider"-->
+<!--                    android:gravity="left"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:showDividers="middle">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1.5"-->
+<!--                        android:text="@string/result_spouseName"-->
+<!--                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/output_spouse_name"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="4"-->
+<!--                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"-->
+<!--                        tools:text="" />-->
+<!--                </LinearLayout>-->
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/buttons_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="#FFFFFF"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <!-- Modal Button -->
+        <Button
+            android:id="@+id/modal_button"
+            style="@style/loginButton"
+            android:layout_width="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:elevation="1dp"
+            android:text="Xác thực"
+            android:textSize="16dp" />
+    </LinearLayout>
+</RelativeLayout>

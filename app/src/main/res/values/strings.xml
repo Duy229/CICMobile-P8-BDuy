@@ -1,0 +1,46 @@
+<resources>
+
+    <string name="app_name">CIC Reader</string>
+
+    <string name="input_card_number">Nhập 6 số cuối CCCD</string>
+    <string name="open_camera">Mở máy ảnh</string>
+
+    <string name="info_loading">Đang đọc…</string>
+    <string name="info_loading2">Vui lòng giữ nguyên vị trí thẻ!</string>
+    <string name="info_scan_passport">Vui lòng điền thông tin chi tiết và đặt điện thoại của bạn lên trên CCCD. Thông tin sau là cần thiết để giải mã dữ liệu hộ chiếu được mã hóa.</string>
+    <string name="error_input">Vui lòng cung cấp chi tiết để đọc CCCD</string>
+    <string name="error_read">Không đọc được CCCD</string>
+    <string name="info_scan_nfc">Vui lòng đặt thẻ ở vị trí NFC của máy và bấm "Đọc thẻ"</string>
+    <string name="result_cardNumber">Số CCCD:</string>
+    <string name="result_oldCardNumber">Số CMND:</string>
+    <string name="result_fullName">Họ và tên:</string>
+    <string name="result_dateOfBirth">Ngày sinh:</string>
+    <string name="result_placeOfOrigin">Quê quán:</string>
+    <string name="result_placeOfResidence">Hộ khẩu:</string>
+    <string name="result_sex">Giới tính:</string>
+    <string name="result_dateOfIssue">Ngày cấp:</string>
+    <string name="result_dateOfExpiry">Giá trị đến:</string>
+    <!--    <string name="result_birth_place">Nơi cấp:</string>-->
+    <string name="result_ethnicity">Dân tộc:</string>
+    <string name="result_religion">Tôn giáo:</string>
+    <string name="result_nationality">Quốc tịch:</string>
+    <string name="result_personalIdentification">Đặc điểm:</string>
+    <string name="result_fatherName">Họ tên cha:</string>
+    <string name="result_motherName">Họ tên mẹ:</string>
+    <string name="result_spouseName">Vợ/ chồng:</string>
+    <string name="result_mrz">Mrz:</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="card_number_hint">Đang đọc thẻ có 6 số cuối: %s</string>
+    <string name="anh_trong">Ảnh trống</string>
+    <string name="x_c_th_c_th_c_n_c_c_c_ng_d_n">XÁC THỰC THẺ CĂN CƯỚC CÔNG DÂN</string>
+    <string name="scan_qr">Quét mã Qr</string>
+    <string name="nh_p_6_s_cu_i_cccd">Nhập 6 số cuối CCCD</string>
+    <string name="todo">TODO</string>
+
+
+</resources>

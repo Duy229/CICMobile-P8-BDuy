@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:scaleType = "centerCrop"
+    tools:context="com.umut.soysal.ui.LoginActivity">
+
+    <ImageView
+        android:id="@+id/img_banner_stid"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp"
+        android:src="@drawable/logo_stid" />
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        style="@style/loginCard"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:background="#FFFFFF"
+        android:elevation="5dp"
+        app:cardCornerRadius="20dp">
+
+        <LinearLayout
+            style="@style/linearParent"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:padding="10dp">
+
+            <TextView
+                style="@style/headerTextPrimary"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp"
+                android:text="Đăng nhập"
+                android:textSize="24dp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/textInputEmail"
+                style="@style/parent"
+                android:layout_marginTop="0dp">
+
+                <EditText
+                    android:id="@+id/editTextAccount"
+                    style="@style/modifiedEditText"
+                    android:hint="Tài khoản:"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/textInputPassword"
+                style="@style/parent"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleDrawable="@drawable/baseline_visibility_24"
+                android:layout_marginTop="20dp">
+
+                <EditText
+                    android:id="@+id/editTextPassword"
+                    style="@style/modifiedEditText"
+                    android:hint="Mật khẩu:"
+                    android:inputType="textPassword"
+                    android:maxLines="1" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <CheckBox
+                android:id="@+id/checkboxRemember"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nhớ đăng nhập"
+                android:layout_below="@id/editTextPassword"
+                android:layout_marginTop="5dp" />
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="20dp"
+                android:layout_gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/buttonLogin"
+                    style="@style/loginButton"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="40dp"
+                    android:elevation="1dp"
+                    android:text="Đăng nhập" />
+
+                <ProgressBar
+                    android:id="@+id/loadingProgressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:visibility="invisible"
+                    android:layout_marginTop="20dp"
+                    android:elevation="10dp"
+                    android:indeterminateTint="@android:color/white"
+                    android:indeterminateTintMode="src_in"/>
+
+            </FrameLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>

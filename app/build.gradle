@@ -1,0 +1,62 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 34
+
+    defaultConfig {
+        applicationId "com.umut.soysal"
+        minSdkVersion 26
+        targetSdkVersion 27
+        versionCode 13
+        versionName "1.0.7"
+        multiDexEnabled = true
+    }
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+    namespace 'com.umut.soysal'
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", includes: ["*.jar", "*.aar"])
+    implementation 'dev.gustavoavila:java-android-websocket-client:2.0.2'
+    implementation 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.22'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+
+    implementation 'androidx.cardview:cardview:1.0.0'
+
+    //Call API
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-jackson:2.9.0'
+
+    implementation 'info.androidhive:barcode-reader:1.1.2'
+    implementation 'com.google.android.gms:play-services-vision:11.0.2'
+
+    implementation 'com.google.zxing:core:3.4.0'
+    implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
+
+    implementation 'com.android.support:multidex:1.0.3'
+    //Implementation 'com.android.support:design:27.1.0'
+    implementation 'com.wdullaer:materialdatetimepicker:3.5.2'
+    implementation 'net.sf.scuba:scuba-sc-android:0.0.18'
+    implementation 'com.madgag.spongycastle:prov:1.54.0.0'
+    implementation 'edu.ucar:jj2000:5.2'
+    implementation 'com.github.mhshams:jnbis:1.1.0'
+    implementation 'org.bouncycastle:bcprov-jdk15on:1.63'
+    implementation 'org.ejbca.cvc:cert-cvc:1.4.6'
+    implementation 'net.sf.scuba:scuba-sc-j2se:0.0.18'
+    implementation 'net.sf.scuba:scuba-smartcards:0.0.18'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2'
+
+    //Lib Telpo_P8
+    implementation files('/libs/telpoLib_v2.5.20230417.aar')
+}
