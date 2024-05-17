@@ -41,6 +41,7 @@ import org.service.CardReaderService;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
+// thêm chức năng hiển thị tiến độ đọc CCCD
 public class SubMainActivity extends AppCompatActivity {
     private static final String PREFERENCE_FILE_KEY = "card_data";
     private View mainLayout, loadingLayout;
