@@ -5,8 +5,14 @@
     <string name="input_card_number">Nhập 6 số cuối CCCD</string>
     <string name="open_camera">Mở máy ảnh</string>
 
+    <string name="info_start_loading">Bắt đầu đọc thẻ.</string>
     <string name="info_loading">Đang đọc…</string>
+    <string name="info_loading_error">Đọc thẻ thất bại!</string>
+    <string name="info_start_loading2">Vui lòng đặt thẻ tại vị trí NFC của máy.</string>
     <string name="info_loading2">Vui lòng giữ nguyên vị trí thẻ!</string>
+    <string name="info_loading2_error">Vui lòng kiểm tra mã số thẻ hoặc vị trí đọc thẻ. Và thử lại!</string>
+
+
     <string name="info_scan_passport">Vui lòng điền thông tin chi tiết và đặt điện thoại của bạn lên trên CCCD. Thông tin sau là cần thiết để giải mã dữ liệu hộ chiếu được mã hóa.</string>
     <string name="error_input">Vui lòng cung cấp chi tiết để đọc CCCD</string>
     <string name="error_read">Không đọc được CCCD</string>

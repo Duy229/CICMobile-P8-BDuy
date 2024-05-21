@@ -8,36 +8,6 @@
     tools:context="com.umut.soysal.ui.SubMainActivity">
 
     <LinearLayout
-        android:id="@+id/loading_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/info_loading"
-            android:textSize="20dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/info_loading2"
-            android:textSize="20dp" />
-
-    </LinearLayout>
-
-
-    <LinearLayout
         android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -54,7 +24,9 @@
             android:text="@string/info_scan_nfc"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             android:textColor="@color/colorPrimary"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/card_number"
             android:layout_width="match_parent"
@@ -76,8 +48,8 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="20dp"
-            android:layout_gravity="center_horizontal">
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="20dp">
 
             <Button
                 android:id="@+id/repeatBtn"
@@ -90,20 +62,187 @@
                 android:elevation="1dp"
                 android:text="Đọc thẻ"
                 android:textSize="16dp" />
-
-            <ProgressBar
-                android:id="@+id/loadingProgressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:visibility="invisible"
-                android:layout_marginTop="25dp"
-                android:elevation="10dp"
-                android:indeterminateTint="@android:color/white"
-                android:indeterminateTintMode="src_in"/>
-
         </FrameLayout>
     </LinearLayout>
 
+    <View
+        android:id="@+id/shadow_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shadow"
+        android:visibility="gone" />
 
+    <LinearLayout
+        android:id="@+id/white_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="150dp"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/white_bg"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/start_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_marginTop="-120dp"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:src="@drawable/mobile_card1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="30dp"
+                android:text="@string/info_start_loading"
+                android:textStyle="bold"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="@string/info_start_loading2"
+                android:textSize="20dp"
+                android:layout_marginHorizontal="20dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/loading_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="-80dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/progress_dot_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:src="@drawable/dot_gray" />
+
+                <ImageView
+                    android:id="@+id/progress_dot_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:src="@drawable/dot_gray" />
+
+                <ImageView
+                    android:id="@+id/progress_dot_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:src="@drawable/dot_gray" />
+
+                <ImageView
+                    android:id="@+id/progress_dot_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:src="@drawable/dot_gray" />
+
+                <ImageView
+                    android:id="@+id/progress_dot_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:src="@drawable/dot_gray" />
+
+                <ImageView
+                    android:id="@+id/progress_dot_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:src="@drawable/dot_gray" />
+
+                <ImageView
+                    android:id="@+id/progress_dot_7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:src="@drawable/dot_gray" />
+
+                <ImageView
+                    android:id="@+id/progress_dot_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:src="@drawable/dot_gray" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_marginTop="20dp"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:src="@drawable/phone4"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="15dp"
+                android:text="@string/info_loading"
+                android:textStyle="bold"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="@string/info_loading2"
+                android:textSize="20dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/error_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_marginTop="-120dp"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:src="@drawable/cancel2"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="30dp"
+                android:text="@string/info_loading_error"
+                android:textStyle="bold"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="@string/info_loading2_error"
+                android:textSize="20dp"
+                android:layout_marginHorizontal="20dp"/>
+        </LinearLayout>
+    </LinearLayout>
 </FrameLayout>

@@ -5,6 +5,7 @@ import static com.umut.soysal.util.LocalStorageUtil.clearDataAuthen;
 import static com.umut.soysal.util.LocalStorageUtil.readCAN;
 import static com.umut.soysal.util.LocalStorageUtil.readQrCode;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -13,12 +14,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -40,15 +44,20 @@ import org.service.CardReaderService;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+
 
 // thêm chức năng hiển thị tiến độ đọc CCCD
 public class SubMainActivity extends AppCompatActivity {
     private static final String PREFERENCE_FILE_KEY = "card_data";
-    private View mainLayout, loadingLayout;
-    private ProgressBar loadingProgressBar;
+    private View mainLayout, loadingLayout,shadowLayout, errorLayout, whiteLayout, startLayout;
+    //    private ProgressBar loadingProgressBar;
     Button repeatBtn;
     String CANNumber, dataQRScan;
     ToastContainer toastContainer;
+    private ImageView[] progressDots;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -61,7 +70,7 @@ public class SubMainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,13 +96,22 @@ public class SubMainActivity extends AppCompatActivity {
 
         mainLayout = findViewById(R.id.main_layout);
         loadingLayout = findViewById(R.id.loading_layout);
-        loadingProgressBar = findViewById(R.id.loadingProgressBar);
+        shadowLayout = findViewById(R.id.shadow_layout);
+        errorLayout = findViewById(R.id.error_layout);
+        whiteLayout = findViewById(R.id.white_layout);
+        startLayout = findViewById(R.id.start_layout);
         repeatBtn = findViewById(R.id.repeatBtn);
 
-        // Đọc nhanh không cần bấm nút đọc
-//        if (dataQRScan != null || CANNumber != null) {
-//            onReadCard();
-//        }
+        progressDots = new ImageView[]{
+                findViewById(R.id.progress_dot_1),
+                findViewById(R.id.progress_dot_2),
+                findViewById(R.id.progress_dot_3),
+                findViewById(R.id.progress_dot_4),
+                findViewById(R.id.progress_dot_5),
+                findViewById(R.id.progress_dot_6),
+                findViewById(R.id.progress_dot_7),
+                findViewById(R.id.progress_dot_8),
+        };
 
         repeatBtn.setOnClickListener(v -> onReadCard());
     }
@@ -109,8 +127,14 @@ public class SubMainActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    // lấy dl để đọc thẻ
     public void onReadCard() {
-        loadingProgressBar.setVisibility(View.VISIBLE);
+        Animation animSlideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
+        shadowLayout.setVisibility(View.VISIBLE);
+        whiteLayout.startAnimation(animSlideUp);
+        startLayout.setVisibility(View.VISIBLE);
+        loadingLayout.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.GONE);
         repeatBtn.setEnabled(false);
         repeatBtn.setText("");
 
@@ -120,21 +144,25 @@ public class SubMainActivity extends AppCompatActivity {
         } else if (CANNumber != null && !CANNumber.isEmpty()) {
             paceKeySpec = PACEKeySpec.createCANKey(CANNumber);
         }
+
         if (paceKeySpec == null) {
-            loadingProgressBar.setVisibility(View.GONE);
+            whiteLayout.setVisibility(View.GONE);
+            loadingLayout.setVisibility(View.GONE);
+            shadowLayout.setVisibility(View.GONE);
             repeatBtn.setEnabled(true);
             repeatBtn.setText("Đọc lại");
-
             toastContainer.showToast(this, "Thiếu dữ liệu cần thiết để đọc thẻ. Vui lòng thử lại!");
             return;
         }
+
         P8CardService cardService = new P8CardService(new Nfc(getBaseContext()));
         CardReaderTask readerTask = new CardReaderTask(cardService, paceKeySpec);
-        readerTask.execute();
 
+        // Delay the execution of the card reading task
+        new Handler().postDelayed(() -> readerTask.execute(), 500);
     }
 
-    private class CardReaderTask extends AsyncTask<Void, Void, Exception> {
+    private class CardReaderTask extends AsyncTask<Void, Integer, Exception> {
         private final CardService cardService;
         private final PACEKeySpec keySpec;
         public CardPersonalData cardPersonalData;
@@ -147,45 +175,61 @@ public class SubMainActivity extends AppCompatActivity {
         @Override
         protected Exception doInBackground(Void... voids) {
             try {
+                publishProgress(0);  // Start progress
                 CardReaderService service = new CardReaderService();
                 service.connectReader(cardService);
 
+                publishProgress(10);  // Connected reader
+
                 runOnUiThread(() -> {
-                    mainLayout.setVisibility(View.VISIBLE);
+                    mainLayout.setVisibility(View.GONE);
                     loadingLayout.setVisibility(View.GONE);
+                    shadowLayout.setVisibility(View.VISIBLE);
+                    whiteLayout.setVisibility(View.VISIBLE);
+                    startLayout.setVisibility(View.VISIBLE);
                 });
 
                 if (cardService instanceof P8CardService) {
                     cardService.open();
 
+                    publishProgress(20);  // Opened card service
+
                     runOnUiThread(() -> {
                         mainLayout.setVisibility(View.GONE);
+                        startLayout.setVisibility(View.GONE);
+                        shadowLayout.setVisibility(View.VISIBLE);
+                        whiteLayout.setVisibility(View.VISIBLE);
                         loadingLayout.setVisibility(View.VISIBLE);
                     });
                 }
 
                 service.initSecureChannel(keySpec);
 
+                publishProgress(30);  // Initialized secure channel
 
                 CardFileInputStream dg15In = service.getInputStream(PassportService.EF_DG15);
                 byte[] dg15Bytes = service.readBytes(dg15In);
+
+                publishProgress(40);  // Read DG15
 
                 boolean checkAA = service.checkAA(dg15Bytes);
                 if (!checkAA) {
                     throw new Exception("Check AA failed");
                 }
 
+                publishProgress(50);  // AA check completed
+
                 CardFileInputStream dg13In = service.getInputStream(PassportService.EF_DG13);
                 byte[] dg13Bytes = service.readBytes(dg13In);
                 CardPersonalData personalData = CICSystemUtil.readCardPersonalData(dg13Bytes);
                 cardPersonalData = personalData;
 
+                publishProgress(60);  // Read DG13
+
                 CardFileInputStream dg1In = service.getInputStream(PassportService.EF_DG1);
                 byte[] dg1Bytes = service.readBytes(dg1In);
 
-                // Hàm lấy MRZ lúc nào cần thì lấy ra
-//                DG1File dg1File = new DG1File(dg1In);
-//                personalData.setMrz(dg1File.getMRZInfo().toString());
+                publishProgress(70);  // Read DG1
 
                 CardFileInputStream dg2In = service.getInputStream(PassportService.EF_DG2);
                 byte[] dg2Bytes = service.readBytes(dg2In);
@@ -197,6 +241,8 @@ public class SubMainActivity extends AppCompatActivity {
                     personalData.setFaceImage(imageBytes);
                     Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
                     save_image(bitmap, "original_image.jpg");
+
+                    publishProgress(80);  // Read and save face image
                 } catch (Exception e) {
                     toastContainer.showToast(SubMainActivity.this, "Lỗi: " + e.getMessage());
                 }
@@ -204,10 +250,14 @@ public class SubMainActivity extends AppCompatActivity {
                 CardFileInputStream dg14In = service.getInputStream(PassportService.EF_DG14);
                 byte[] dg14Bytes = service.readBytes(dg14In);
 
+                publishProgress(90);  // Read DG14
+
                 CardFileInputStream sodIn = service.getInputStream(PassportService.EF_SOD);
                 byte[] sodBytes = service.readBytes(sodIn);
 
-                // Chuyển đổi mảng byte thành chuỗi Base64 & Lưu dữ liệu vào SharedPreferences
+                publishProgress(95);  // Read SOD
+
+                // Save data to SharedPreferences
                 SharedPreferences sharedPreferences = getBaseContext().getSharedPreferences(PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
                 SharedPreferences.Editor data = sharedPreferences.edit();
 
@@ -219,15 +269,33 @@ public class SubMainActivity extends AppCompatActivity {
                 data.putString("sod", Base64.encodeToString(sodBytes, Base64.DEFAULT));
                 data.putString("card_number", cardPersonalData.getCardNumber());
 
-                // Áp dụng các thay đổi (bắt buộc)
                 data.apply();
+
+                publishProgress(100);  // Completed
             } catch (Exception e) {
-                cardService.close();
                 return e;
+            } finally {
+                cardService.close();
             }
+
             return null;
         }
 
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            int progress = values[0];
+            int step = progress / 12;
+            for (int i = 0; i < progressDots.length; i++) {
+                if (i < step) {
+                    progressDots[i].setImageResource(R.drawable.dot_blue);
+                } else {
+                    progressDots[i].setImageResource(R.drawable.dot_gray);
+                }
+            }
+        }
+
+        @Override
         protected void onPostExecute(Exception result) {
             if (cardPersonalData != null) {
                 Intent intent;
@@ -247,9 +315,11 @@ public class SubMainActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 } else {
-                    mainLayout.setVisibility(View.VISIBLE);
                     loadingLayout.setVisibility(View.GONE);
-                    loadingProgressBar.setVisibility(View.GONE);
+                    startLayout.setVisibility(View.GONE);
+                    whiteLayout.setVisibility(View.GONE);
+                    shadowLayout.setVisibility(View.GONE);
+                    mainLayout.setVisibility(View.VISIBLE);
                     repeatBtn.setEnabled(true);
                     repeatBtn.setText("Đọc lại");
 
@@ -258,13 +328,25 @@ public class SubMainActivity extends AppCompatActivity {
             }
 
             if (result != null) {
-                mainLayout.setVisibility(View.VISIBLE);
+                mainLayout.setVisibility(View.GONE);
                 loadingLayout.setVisibility(View.GONE);
-                loadingProgressBar.setVisibility(View.GONE);
+                startLayout.setVisibility(View.GONE);
+                whiteLayout.setVisibility(View.VISIBLE);
+                errorLayout.setVisibility(View.VISIBLE);
                 repeatBtn.setEnabled(true);
                 repeatBtn.setText("Đọc lại");
                 toastContainer.showToast(SubMainActivity.this, "Vui lòng kiểm tra mã số thẻ hoặc vị trí đọc thẻ. Và thử lại!");
+
+                new Handler().postDelayed(() -> {
+                    whiteLayout.setVisibility(View.GONE);
+                    startLayout.setVisibility(View.GONE);
+                    errorLayout.setVisibility(View.GONE);
+                    shadowLayout.setVisibility(View.GONE);
+                    mainLayout.setVisibility(View.VISIBLE);
+                }, 2500); // 2000 milliseconds = 2 seconds
             }
         }
     }
+
+
 }

@@ -144,7 +144,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
         deleteFaceImage("original_image.jpg");
         clearDataAuthed(this);
         writeCAN(this, null);
-        writeQRCode(this, null);
+//        writeQRCode(this, null);
 
         LayoutInflater.from(this).inflate(R.layout.popup, null);
         initView();
@@ -217,7 +217,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
         canButton.setOnClickListener(v -> {
             if (checkLegitimacy || checkFaceCompare) {
-                mDecodeReader.close();
+//                mDecodeReader.close();
                 if (isConnect) {
                     openModal();
                 } else {
@@ -228,17 +228,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
             }
         });
 
-        qrCodeButton.setOnClickListener(v -> {
-            if (checkLegitimacy || checkFaceCompare) {
-                if (isConnect) {
-                    showPopupDialog();
-                } else {
-                    toastContainer.showToast(this, "Vui lòng kết nối lại và khởi động lại ứng dụng để sử dụng dịch vụ");
-                }
-            } else {
-                toastContainer.showToast(this, "Chưa cấu hình xác thực");
-            }
-        });
+//        qrCodeButton.setOnClickListener(v -> {
+//            if (checkLegitimacy || checkFaceCompare) {
+//                if (isConnect) {
+//                    showPopupDialog();
+//                } else {
+//                    toastContainer.showToast(this, "Vui lòng kết nối lại và khởi động lại ứng dụng để sử dụng dịch vụ");
+//                }
+//            } else {
+//                toastContainer.showToast(this, "Chưa cấu hình xác thực");
+//            }
+//        });
 
     }
 
@@ -947,21 +947,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
         }
     }
 
-    private void navigateToSubMainActivity(Context context) {
-        mDecodeReader.close();
-        getConfigValidations(context);
-        if (checkFaceCompare) {
-            intent = new Intent(context, CameraActivity.class);
-        } else {
-            intent = new Intent(context, SubMainActivity.class);
-        }
-        startActivity(intent);
-    }
+//    private void navigateToSubMainActivity(Context context) {
+//        mDecodeReader.close();
+//        getConfigValidations(context);
+//        if (checkFaceCompare) {
+//            intent = new Intent(context, CameraActivity.class);
+//        } else {
+//            intent = new Intent(context, SubMainActivity.class);
+//        }
+//        startActivity(intent);
+//    }
 
 
     private void initView() {
         canButton = findViewById(R.id.buttonCAN);
-        qrCodeButton = findViewById(R.id.buttonQrCode);
+//        qrCodeButton = findViewById(R.id.buttonQrCode);
         setting = findViewById(R.id.setting);
     }
 
