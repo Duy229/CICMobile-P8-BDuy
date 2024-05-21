@@ -174,11 +174,10 @@ public class SubMainActivity extends AppCompatActivity {
         @Override
         protected Exception doInBackground(Void... voids) {
             try {
-                publishProgress(0);  // Start progress
                 CardReaderService service = new CardReaderService();
                 service.connectReader(cardService);
 
-                publishProgress(10);  // Connected reader
+//                publishProgress(10);
 
                 runOnUiThread(() -> {
                     mainLayout.setVisibility(View.GONE);
@@ -191,7 +190,6 @@ public class SubMainActivity extends AppCompatActivity {
                 if (cardService instanceof P8CardService) {
                     cardService.open();
 
-                    publishProgress(20);  // Opened card service
 
                     runOnUiThread(() -> {
                         mainLayout.setVisibility(View.GONE);
@@ -200,40 +198,37 @@ public class SubMainActivity extends AppCompatActivity {
                         whiteLayout.setVisibility(View.VISIBLE);
                         loadingLayout.setVisibility(View.VISIBLE);
                     });
+                    publishProgress(0);
                 }
 
                 service.initSecureChannel(keySpec);
 
-                publishProgress(30);  // Initialized secure channel
 
+                publishProgress(10);
                 CardFileInputStream dg15In = service.getInputStream(PassportService.EF_DG15);
+
                 byte[] dg15Bytes = service.readBytes(dg15In);
-
-                publishProgress(40);  // Read DG15
-
                 boolean checkAA = service.checkAA(dg15Bytes);
                 if (!checkAA) {
                     throw new Exception("Check AA failed");
                 }
-
-                publishProgress(50);  // AA check completed
+                publishProgress(20);
 
                 CardFileInputStream dg13In = service.getInputStream(PassportService.EF_DG13);
+                publishProgress(30);
                 byte[] dg13Bytes = service.readBytes(dg13In);
                 CardPersonalData personalData = CICSystemUtil.readCardPersonalData(dg13Bytes);
                 cardPersonalData = personalData;
 
-                publishProgress(60);  // Read DG13
-
                 CardFileInputStream dg1In = service.getInputStream(PassportService.EF_DG1);
                 byte[] dg1Bytes = service.readBytes(dg1In);
 
-                publishProgress(70);  // Read DG1
-
                 CardFileInputStream dg2In = service.getInputStream(PassportService.EF_DG2);
+                publishProgress(40);
                 byte[] dg2Bytes = service.readBytes(dg2In);
                 DG2File dg2File = new DG2File(new ByteArrayInputStream(dg2Bytes));
 
+                publishProgress(50);
                 try {
                     InputStream inputStream = dg2File.getFaceInfos().get(0).getFaceImageInfos().get(0).getImageInputStream();
                     byte[] imageBytes = CICSystemUtil.inputStreamToByteArray(inputStream);
@@ -241,20 +236,19 @@ public class SubMainActivity extends AppCompatActivity {
                     Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
                     save_image(bitmap, "original_image.jpg");
 
-                    publishProgress(80);  // Read and save face image
                 } catch (Exception e) {
                     toastContainer.showToast(SubMainActivity.this, "Lỗi: " + e.getMessage());
                 }
 
                 CardFileInputStream dg14In = service.getInputStream(PassportService.EF_DG14);
+                publishProgress(60);
                 byte[] dg14Bytes = service.readBytes(dg14In);
 
-                publishProgress(90);  // Read DG14
 
                 CardFileInputStream sodIn = service.getInputStream(PassportService.EF_SOD);
+                publishProgress(70);
                 byte[] sodBytes = service.readBytes(sodIn);
 
-                publishProgress(95);  // Read SOD
 
                 // Save data to SharedPreferences
                 SharedPreferences sharedPreferences = getBaseContext().getSharedPreferences(PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
@@ -270,7 +264,8 @@ public class SubMainActivity extends AppCompatActivity {
 
                 data.apply();
 
-                publishProgress(100);  // Completed
+
+                publishProgress(80);  // Completed
             } catch (Exception e) {
                 return e;
             } finally {
@@ -284,7 +279,7 @@ public class SubMainActivity extends AppCompatActivity {
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
             int progress = values[0];
-            int step = progress / 12;
+            int step = progress / 10;
             for (int i = 0; i < progressDots.length; i++) {
                 if (i < step) {
                     progressDots[i].setImageResource(R.drawable.dot_blue);
