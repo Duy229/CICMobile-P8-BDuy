@@ -49,7 +49,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 
-// thêm chức năng hiển thị tiến độ đọc CCCD
 public class SubMainActivity extends AppCompatActivity {
     private static final String PREFERENCE_FILE_KEY = "card_data";
     private View mainLayout, loadingLayout,shadowLayout, errorLayout, whiteLayout, startLayout;
