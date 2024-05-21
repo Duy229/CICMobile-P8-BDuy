@@ -140,6 +140,7 @@ public class LoginActivity extends Activity {
         boolean remember = rememberCheckBox.isChecked();
 
         String clientName = getClientNameDefault();
+//        String clientName = "VTCs_ID33.1";
 
         loadingProgressBar.setVisibility(View.VISIBLE);
         Button loginButton = findViewById(R.id.buttonLogin);
