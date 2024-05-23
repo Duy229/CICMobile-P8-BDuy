@@ -100,9 +100,9 @@
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:layout_marginBottom="40dp"
+            android:contentDescription="@string/todo"
             android:gravity="center|end"
-            android:src="@drawable/logo_stid"
-            android:contentDescription="@string/todo" />
+            android:src="@drawable/logo_stid" />
 
         <TextView
             android:layout_width="wrap_content"

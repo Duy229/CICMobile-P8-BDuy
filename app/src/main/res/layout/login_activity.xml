@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,8 +16,7 @@
         android:layout_marginBottom="40dp"
         android:src="@drawable/logo_stid" />
 
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.cardview.widget.CardView
         style="@style/loginCard"
         android:layout_gravity="center"
         android:layout_marginTop="60dp"
@@ -77,7 +77,7 @@
                 android:layout_marginTop="5dp" />
 
             <FrameLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="20dp"
                 android:layout_gravity="center_horizontal">
@@ -85,6 +85,7 @@
                 <Button
                     android:id="@+id/buttonLogin"
                     style="@style/loginButton"
+                    android:layout_width="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="40dp"
                     android:elevation="1dp"
@@ -92,14 +93,14 @@
 
                 <ProgressBar
                     android:id="@+id/loadingProgressBar"
-                    android:layout_width="wrap_content"
+                    android:layout_width="97dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
-                    android:visibility="invisible"
                     android:layout_marginTop="20dp"
                     android:elevation="10dp"
                     android:indeterminateTint="@android:color/white"
-                    android:indeterminateTintMode="src_in"/>
+                    android:indeterminateTintMode="src_in"
+                    android:visibility="invisible" />
 
             </FrameLayout>
         </LinearLayout>

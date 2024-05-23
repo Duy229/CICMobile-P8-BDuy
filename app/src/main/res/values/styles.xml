@@ -54,15 +54,16 @@
 
     <style name="loginButton" parent="viewParent">
         <item name="android:layout_height">44dp</item>
-        <item name="android:background">@drawable/login_button_bk</item>
-<!--        <item name="android:background">@drawable/sky_sea_bg</item>-->
+<!--        <item name="android:background">@drawable/login_button_bk</item>-->
+        <item name="android:background">@drawable/background_login_ripple</item>
         <item name="android:textColor">@color/mdtp_white</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="logout" parent="viewParent">
         <item name="android:layout_height">44dp</item>
-        <item name="android:background">@drawable/logout_button_bk</item>
+        <item name="android:background">@drawable/background_logout_ripple</item>
+<!--        <item name="android:background">@drawable/logout_button_bk</item>-->
         <item name="android:textColor">@color/mdtp_white</item>
         <item name="android:textStyle">bold</item>
     </style>
