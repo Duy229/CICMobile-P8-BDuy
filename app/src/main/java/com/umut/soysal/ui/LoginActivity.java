@@ -82,6 +82,7 @@ public class LoginActivity extends Activity {
         img_banner_stid = findViewById(R.id.img_banner_stid);
         loginButton = findViewById(R.id.buttonLogin);
 
+
         loginButton.setOnClickListener(v -> {
                     baseUrl = readBaseUrl(this);
                     if (baseUrl != null && !baseUrl.isEmpty()) {
@@ -208,62 +209,114 @@ public class LoginActivity extends Activity {
 
         View view = getLayoutInflater().inflate(R.layout.cicserver_modal, null);
 
-        Switch mySwitch = view.findViewById(R.id.switchWebsocket);
-        EditText urlWebsocket = view.findViewById(R.id.urlWebsocket);
-        EditText urlCICServer = view.findViewById(R.id.urlCICServer);
-        Button checkHealth = view.findViewById(R.id.checkHealth);
-        Button saveWebSocket = view.findViewById(R.id.saveWebSocket);
-        Button saveUrlServer = view.findViewById(R.id.saveUrlServer);
+//        Switch mySwitch = view.findViewById(R.id.switchWebsocket);
+//        EditText urlWebsocket = view.findViewById(R.id.urlWebsocket);
+//        EditText urlCICServer = view.findViewById(R.id.urlCICServer);
+//        Button checkHealth = view.findViewById(R.id.checkHealth);
+//        Button saveWebSocket = view.findViewById(R.id.saveWebSocket);
+//        Button saveUrlServer = view.findViewById(R.id.saveUrlServer);
+        Button switchServer = view.findViewById(R.id.switchServerBtn);
+//        Button  serverColoredBtn= view.findViewById(R.id.serverColoredBtn);
+        Button switchSocketBtn = view.findViewById(R.id.switchSocketBtn);
+//        Button socketColoredBtn = view.findViewById(R.id.socketColoredBtn);
+        Button  serverCancelBtn= view.findViewById(R.id.serverCancelBtn);
+        Button  serverConfirmBtn= view.findViewById(R.id.serverConfirmBtn);
+        Button  checkConfirmBtn= view.findViewById(R.id.checkConfirmBtn);
+        Button socketCancelBtn = view.findViewById(R.id.socketCancelBtn);
+        Button  socketConfirmBtn= view.findViewById(R.id.socketConfirmBtn);
+        EditText serverEditText = view.findViewById(R.id.serverEditText);
+        EditText socketEditText = view.findViewById(R.id.socketEditText);
 
-        checkHealth.setEnabled(false);
-        saveWebSocket.setEnabled(false);
+
+//        checkHealth.setEnabled(false);
+//        saveWebSocket.setEnabled(false);
+
 
         baseUrl = readBaseUrl(this);
         String webSocketUrl = readUrlWebsocket(this);
         UpdateUrl updateUrl = new UpdateUrl();
 
-        if(baseUrl != null) {
-            urlCICServer.setText(baseUrl);
+//        if(baseUrl != null) {
+//            urlCICServer.setText(baseUrl);
+//        }
+//        if(webSocketUrl != null) {
+//            urlWebsocket.setText(webSocketUrl);
+//        }
+
+        if (baseUrl != null){
+            serverEditText.setText(baseUrl);
         }
-        if(webSocketUrl != null) {
-            urlWebsocket.setText(webSocketUrl);
+        if (webSocketUrl != null){
+            socketEditText.setText(webSocketUrl);
         }
-        TextWatcher textWatcherCICServer = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+//        TextWatcher textWatcherCICServer = new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//            }
+//
+//            @Override
+//            public void onTextChanged(@NonNull CharSequence s, int start, int before, int count) {
+//                String newText = s.toString().trim();
+//                checkHealth.setEnabled(!newText.isEmpty());
+//            }
+//
+//            @Override
+//            public void afterTextChanged(@NonNull Editable s) {
+//            }
+//        };
 
-            @Override
-            public void onTextChanged(@NonNull CharSequence s, int start, int before, int count) {
-                String newText = s.toString().trim();
-                checkHealth.setEnabled(!newText.isEmpty());
-            }
+//        TextWatcher textWatcherWebsocket = new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//            }
+//
+//            @Override
+//            public void onTextChanged(@NonNull CharSequence s, int start, int before, int count) {
+//                String newText = s.toString().trim();
+//                saveWebSocket.setEnabled(!newText.isEmpty());
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//            }
+//        };
+//        urlCICServer.addTextChangedListener(textWatcherCICServer);
+//        urlWebsocket.addTextChangedListener(textWatcherWebsocket);
 
-            @Override
-            public void afterTextChanged(@NonNull Editable s) {
-            }
-        };
+//        checkHealth.setOnClickListener(v -> {
+//            updateUrl.setNewUrl(urlCICServer.getText().toString());
+//            if (updateUrl.getNewUrl().startsWith("http://") || updateUrl.getNewUrl().startsWith("https://")) {
+//                Retrofit retrofit = new Retrofit.Builder()
+//                        .baseUrl(updateUrl.getNewUrl())
+//                        .addConverterFactory(GsonConverterFactory.create())
+//                        .build();
+//
+//                HealthCheckService service = retrofit.create(HealthCheckService.class);
+//                Call<ResponseBody> call = service.getHealth();
+//                call.enqueue(new Callback<ResponseBody>() {
+//                    @Override
+//                    public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+//                        if (response.code() == 200) {
+//                            checkHealth.setVisibility(View.GONE);
+//                            saveUrlServer.setVisibility(View.VISIBLE);
+//                            toastContainer.showToast(LoginActivity.this, "Thành công!");
+//                        } else {
+//                            toastContainer.showToast(LoginActivity.this, "Kiểm tra lại url");
+//                        }
+//                    }
+//                    @Override
+//                    public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+//                        toastContainer.showToast(LoginActivity.this, "Thất bại!");
+//                    }
+//                });
+//            } else {
+//                toastContainer.showToast(LoginActivity.this, "Thiếu 'http://' hoặc 'https://'");
+//            }
+//            checkHealth.setEnabled(false);
+//        });
 
-        TextWatcher textWatcherWebsocket = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(@NonNull CharSequence s, int start, int before, int count) {
-                String newText = s.toString().trim();
-                saveWebSocket.setEnabled(!newText.isEmpty());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        };
-        urlCICServer.addTextChangedListener(textWatcherCICServer);
-        urlWebsocket.addTextChangedListener(textWatcherWebsocket);
-
-        checkHealth.setOnClickListener(v -> {
-            updateUrl.setNewUrl(urlCICServer.getText().toString());
+        checkConfirmBtn.setOnClickListener(v -> {
+            updateUrl.setNewUrl(serverEditText.getText().toString());
             if (updateUrl.getNewUrl().startsWith("http://") || updateUrl.getNewUrl().startsWith("https://")) {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(updateUrl.getNewUrl())
@@ -276,13 +329,14 @@ public class LoginActivity extends Activity {
                     @Override
                     public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                         if (response.code() == 200) {
-                            checkHealth.setVisibility(View.GONE);
-                            saveUrlServer.setVisibility(View.VISIBLE);
+                            checkConfirmBtn.setVisibility(View.GONE);
+                            serverConfirmBtn.setVisibility(View.VISIBLE);
                             toastContainer.showToast(LoginActivity.this, "Thành công!");
                         } else {
                             toastContainer.showToast(LoginActivity.this, "Kiểm tra lại url");
                         }
                     }
+
                     @Override
                     public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                         toastContainer.showToast(LoginActivity.this, "Thất bại!");
@@ -291,39 +345,61 @@ public class LoginActivity extends Activity {
             } else {
                 toastContainer.showToast(LoginActivity.this, "Thiếu 'http://' hoặc 'https://'");
             }
-            checkHealth.setEnabled(false);
+            checkConfirmBtn.setEnabled(false);
         });
 
-        saveUrlServer.setOnClickListener(v -> {
-            writeBaseUrl(LoginActivity.this, updateUrl.getNewUrl());
-            apiService = ApiClient.getApiService(LoginActivity.this);
+//        saveUrlServer.setOnClickListener(v -> {
+//            writeBaseUrl(LoginActivity.this, updateUrl.getNewUrl());
+//            apiService = ApiClient.getApiService(LoginActivity.this);
+//            loginButton.setEnabled(true);
+//            saveUrlServer.setEnabled(false);
+//            toastContainer.showToast(LoginActivity.this, "Lưu cấu hình thành công");
+//        });
+
+        serverConfirmBtn.setOnClickListener(v -> {
+//            performLogout.performLogout();
+            writeBaseUrl(this, updateUrl.getNewUrl());
+            apiService = ApiClient.getApiService(this);
             loginButton.setEnabled(true);
-            saveUrlServer.setEnabled(false);
-            toastContainer.showToast(LoginActivity.this, "Lưu cấu hình thành công");
+            serverConfirmBtn.setEnabled(false);
+            toastContainer.showToast(this, "Lưu cấu hình thành công, Vui lòng đăng nhập lại");
         });
 
-        saveWebSocket.setOnClickListener(v -> {
-            String url = urlWebsocket.getText().toString();
-            writeUrlWebsocket(this, url);
-            saveWebSocket.setEnabled(false);
-            toastContainer.showToast(LoginActivity.this, "Lưu cấu hình thành công");
+//        saveWebSocket.setOnClickListener(v -> {
+//            String url = urlWebsocket.getText().toString();
+//            writeUrlWebsocket(this, url);
+//            saveWebSocket.setEnabled(false);
+//            toastContainer.showToast(LoginActivity.this, "Lưu cấu hình thành công");
+//        });
+
+        socketConfirmBtn.setOnClickListener(v -> {
+            String url = socketEditText.getText().toString();
+
+            if (url.startsWith("ws://")) {
+                writeUrlWebsocket(this, url);
+                socketConfirmBtn.setEnabled(false);
+                toastContainer.showToast(this, "Lưu cấu hình websocket thành công");
+            } else {
+                toastContainer.showToast(this, "Thiếu 'ws://'");
+            }
+
         });
 
         Boolean isWebsocket = readWebsocket(this);
 
-        if (mySwitch != null) {
-            mySwitch.setChecked(isWebsocket);
-
-            mySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                if (isChecked) {
-                    urlWebsocket.setEnabled(true);
-                    writeWebsocket(this, true);
-                } else {
-                    urlWebsocket.setEnabled(false);
-                    writeWebsocket(this, false);
-                }
-            });
-        }
+//        if (mySwitch != null) {
+//            mySwitch.setChecked(isWebsocket);
+//
+//            mySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//                if (isChecked) {
+//                    urlWebsocket.setEnabled(true);
+//                    writeWebsocket(this, true);
+//                } else {
+//                    urlWebsocket.setEnabled(false);
+//                    writeWebsocket(this, false);
+//                }
+//            });
+//        }
 
 
         builder.setView(view);

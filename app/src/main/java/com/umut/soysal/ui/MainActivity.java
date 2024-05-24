@@ -43,6 +43,7 @@ import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.Layout;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.TypedValue;
@@ -106,6 +107,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
     ToastContainer toastContainer;
     PerformLogout performLogout;
     TextView versionText;
+    View  serverEdit, socketEdit;
     Intent intent;
     Boolean checkIntegrity, checkLegitimacy, checkFaceCompare, faceLivenessCheck, isConnect;
     ImageView setting, imageViewCap;
@@ -123,7 +125,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 //        }
     }
 
-    @Override
+     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
@@ -228,18 +230,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
             }
         });
 
-//        qrCodeButton.setOnClickListener(v -> {
-//            if (checkLegitimacy || checkFaceCompare) {
-//                if (isConnect) {
-//                    showPopupDialog();
-//                } else {
-//                    toastContainer.showToast(this, "Vui lòng kết nối lại và khởi động lại ứng dụng để sử dụng dịch vụ");
-//                }
-//            } else {
-//                toastContainer.showToast(this, "Chưa cấu hình xác thực");
-//            }
-//        });
-
     }
 
     private void showToastAndPerformLogout() {
@@ -261,6 +251,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
         versionText.setText(text);
     }
 
+    @SuppressLint({"WrongViewCast", "MissingInflatedId"})
     private void showModalSetting() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -275,6 +266,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
         configValidation = view.findViewById(R.id.config);
         updateVersion = view.findViewById(R.id.update);
         versionText = view.findViewById(R.id.version);
+        serverEdit = view.findViewById(R.id.serverEdit_layout);
+        socketEdit = view.findViewById(R.id.socketEdit_layout);
 
         setVersionText();
 
@@ -329,66 +322,64 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
     private void openModalCICServer() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Cấu hình CICServer");
+//        builder.setTitle("Cấu hình CICServer");
+
 
         View view = getLayoutInflater().inflate(R.layout.cicserver_modal, null);
 
-        Switch mySwitch = view.findViewById(R.id.switchWebsocket);
-        EditText urlWebsocket = view.findViewById(R.id.urlWebsocket);
-        EditText urlCICServer = view.findViewById(R.id.urlCICServer);
-        Button checkHealth = view.findViewById(R.id.checkHealth);
-        Button saveWebSocket = view.findViewById(R.id.saveWebSocket);
-        Button saveUrlServer = view.findViewById(R.id.saveUrlServer);
-
-        checkHealth.setEnabled(false);
-        saveWebSocket.setEnabled(false);
+        Button switchServerBtn = view.findViewById(R.id.switchServerBtn);
+        Button  serverColoredBtn= view.findViewById(R.id.serverColoredBtn);
+        Button switchSocketBtn = view.findViewById(R.id.switchSocketBtn);
+        Button socketColoredBtn = view.findViewById(R.id.socketColoredBtn);
+        Button  serverCancelBtn= view.findViewById(R.id.serverCancelBtn);
+        Button  serverConfirmBtn= view.findViewById(R.id.serverConfirmBtn);
+        Button  checkConfirmBtn= view.findViewById(R.id.checkConfirmBtn);
+        Button socketCancelBtn = view.findViewById(R.id.socketCancelBtn);
+        Button  socketConfirmBtn= view.findViewById(R.id.socketConfirmBtn);
+        EditText serverEditText = view.findViewById(R.id.serverEditText);
+        EditText socketEditText = view.findViewById(R.id.socketEditText);
+        View socketEdit = view.findViewById(R.id.socketEdit_layout);
+        View serverEdit = view.findViewById(R.id.serverEdit_layout);
 
         String baseUrl = readBaseUrl(MainActivity.this);
         String webSocketUrl = readUrlWebsocket(this);
         UpdateUrl updateUrl = new UpdateUrl();
 
-        if (baseUrl != null) {
-            urlCICServer.setText(baseUrl);
+
+        if (baseUrl != null){
+            serverEditText.setText(baseUrl);
         }
-        if (webSocketUrl != null) {
-            urlWebsocket.setText(webSocketUrl);
+        if (webSocketUrl != null){
+            socketEditText.setText(webSocketUrl);
         }
-        TextWatcher textWatcherCICServer = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
 
-            @Override
-            public void onTextChanged(@NonNull CharSequence s, int start, int before, int count) {
-                String newText = s.toString().trim();
-                checkHealth.setEnabled(!newText.isEmpty());
-            }
+        switchServerBtn.setOnClickListener(v ->{
+            switchServerBtn.setVisibility(View.GONE);
+            socketEdit.setVisibility(View.GONE);
+            socketColoredBtn.setVisibility(View.GONE);
+            switchSocketBtn.setVisibility(View.VISIBLE);
+            serverColoredBtn.setVisibility(View.VISIBLE);
+            serverEdit.setVisibility(View.VISIBLE);
+        });
 
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        };
+        switchSocketBtn.setOnClickListener(v ->{
+            switchSocketBtn.setVisibility(View.GONE);
+            serverColoredBtn.setVisibility(View.GONE);
+            serverEdit.setVisibility(View.GONE);
+            switchServerBtn.setVisibility(View.VISIBLE);
+            socketEdit.setVisibility(View.VISIBLE);
+            socketColoredBtn.setVisibility(View.VISIBLE);
+        });
+        serverCancelBtn.setOnClickListener(v ->{
+         dialog.dismiss();
+        });
 
-        TextWatcher textWatcherWebsocket = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+        socketCancelBtn.setOnClickListener(v ->{
+            dialog.dismiss();
+        });
 
-            @Override
-            public void onTextChanged(@NonNull CharSequence s, int start, int before, int count) {
-                String newText = s.toString().trim();
-                saveWebSocket.setEnabled(!newText.isEmpty());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        };
-        urlCICServer.addTextChangedListener(textWatcherCICServer);
-        urlWebsocket.addTextChangedListener(textWatcherWebsocket);
-
-        checkHealth.setOnClickListener(v -> {
-            updateUrl.setNewUrl(urlCICServer.getText().toString());
+        checkConfirmBtn.setOnClickListener(v -> {
+            updateUrl.setNewUrl(serverEditText.getText().toString());
             if (updateUrl.getNewUrl().startsWith("http://") || updateUrl.getNewUrl().startsWith("https://")) {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(updateUrl.getNewUrl())
@@ -401,8 +392,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
                     @Override
                     public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                         if (response.code() == 200) {
-                            checkHealth.setVisibility(View.GONE);
-                            saveUrlServer.setVisibility(View.VISIBLE);
+                            checkConfirmBtn.setVisibility(View.GONE);
+                            serverConfirmBtn.setVisibility(View.VISIBLE);
                             toastContainer.showToast(MainActivity.this, "Thành công!");
                         } else {
                             toastContainer.showToast(MainActivity.this, "Kiểm tra lại url");
@@ -417,23 +408,22 @@ import retrofit2.converter.gson.GsonConverterFactory;
             } else {
                 toastContainer.showToast(MainActivity.this, "Thiếu 'http://' hoặc 'https://'");
             }
-            checkHealth.setEnabled(false);
+            checkConfirmBtn.setEnabled(false);
         });
 
-        saveUrlServer.setOnClickListener(v -> {
+        serverConfirmBtn.setOnClickListener(v -> {
             performLogout.performLogout();
             writeBaseUrl(this, updateUrl.getNewUrl());
             apiService = ApiClient.getApiService(this);
-            saveUrlServer.setEnabled(false);
+            serverConfirmBtn.setEnabled(false);
             toastContainer.showToast(this, "Lưu cấu hình thành công, Vui lòng đăng nhập lại");
         });
-
-        saveWebSocket.setOnClickListener(v -> {
-            String url = urlWebsocket.getText().toString();
+        socketConfirmBtn.setOnClickListener(v -> {
+            String url = socketEditText.getText().toString();
 
             if (url.startsWith("ws://")) {
                 writeUrlWebsocket(this, url);
-                saveWebSocket.setEnabled(false);
+                socketConfirmBtn.setEnabled(false);
                 toastContainer.showToast(this, "Lưu cấu hình websocket thành công");
             } else {
                 toastContainer.showToast(this, "Thiếu 'ws://'");
@@ -441,30 +431,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
         });
 
-        Boolean isWebsocket = readWebsocket(this);
-
-        if (mySwitch != null) {
-            mySwitch.setChecked(isWebsocket);
-
-            mySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                if (isChecked) {
-                    urlWebsocket.setEnabled(true);
-                    writeWebsocket(this, true);
-                } else {
-                    urlWebsocket.setEnabled(false);
-                    writeWebsocket(this, false);
-                }
-            });
-        }
-
-
         builder.setView(view);
 
         builder.setPositiveButton(null, null);
 
-        builder.setNegativeButton("Đóng", (dialog, which) -> {
-            dialog.dismiss();
-        });
 
         dialog = builder.create();
 
@@ -473,12 +443,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
     private void openModalValidation() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Cấu hình xác thực");
-
-        LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.VERTICAL);
+//        builder.setTitle("Cấu hình xác thực");
 
         View view = getLayoutInflater().inflate(R.layout.layout_modal, null);
+
+        Button canConfirmBtn = view.findViewById(R.id.canConfirmBtn);
+        Button canCancelBtn = view.findViewById(R.id.canCancelBtn);
 
         CheckBox checkBox1 = view.findViewById(R.id.checkbox1);
         CheckBox checkBox2 = view.findViewById(R.id.checkbox2);
@@ -516,6 +486,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
                 checkBox1.setChecked(false);
             }
         });
+
         fetchServerInformation(new ServerInfoCallback() {
             @Override
             public void onServerInfoReceived(String response) {
@@ -531,10 +502,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
                         isLegitimacyEnabled = responseObj.getBoolean("legitimacy");
                         isFaceCompareEnabled = responseObj.getBoolean("faceCompare");
                         isFaceLivenessEnabled = responseObj.getBoolean("faceLiveness");
+
                         if (!isIntegrityEnabled && isLegitimacyEnabled) {
                             String text = "Xác thực toàn vẹn dữ liệu & BCA";
                             checkBox2.setText(text);
                         }
+
                         checkBox1.setVisibility(isIntegrityEnabled ? View.VISIBLE : View.GONE);
                         checkBox2.setVisibility(isLegitimacyEnabled ? View.VISIBLE : View.GONE);
                         checkBox3.setVisibility(isFaceCompareEnabled ? View.VISIBLE : View.GONE);
@@ -550,13 +523,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
                 Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_LONG).show();
             }
         });
+
         builder.setView(view);
 
-        builder.setPositiveButton("Lưu", (dialog, which) -> {
+        AlertDialog dialog = builder.create();
+
+        canConfirmBtn.setOnClickListener(v -> {
             boolean AcheckIntegrity = checkBox1.isChecked();
             boolean AcheckLegitimacy = checkBox2.isChecked();
             boolean AcheckFaceCompare = checkBox3.isChecked();
             boolean AfaceLivenessCheck = checkBox4.isChecked();
+
             if (AcheckIntegrity || AcheckLegitimacy || AcheckFaceCompare || AfaceLivenessCheck) {
                 saveConfigValidation(this, AcheckIntegrity, AcheckLegitimacy, AcheckFaceCompare, AfaceLivenessCheck);
                 toastContainer.showToast(MainActivity.this, "Lưu cấu hình thành công");
@@ -566,17 +543,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
             dialog.dismiss();
         });
 
-        builder.setNegativeButton("Đóng", (dialog, which) -> {
-            dialog.dismiss();
-        });
+        canCancelBtn.setOnClickListener(v -> dialog.dismiss());
 
-        builder.setOnDismissListener(dialogInterface -> {
+        dialog.setOnDismissListener(dialogInterface -> {
             getConfigValidations(this);
         });
 
-        AlertDialog dialog = builder.create();
         dialog.show();
     }
+
 
     private void confirmLogout() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -815,13 +790,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
     }
 
     private void openModal() {
+
+        View view = getLayoutInflater().inflate(R.layout.can_modal, null);
+
+
+        Button confirmModal = view.findViewById(R.id.canConfirmBtn);
+        Button cancelModal = view.findViewById(R.id.canCancelBtn);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Nhập 6 số cuối CCCD");
+//        builder.setTitle("Nhập 6 số cuối CCCD");
 
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
 
-        View view = getLayoutInflater().inflate(R.layout.can_modal, null);
+//        View view = getLayoutInflater().inflate(R.layout.can_modal, null);
         CANNumberEditText = view.findViewById(R.id.editTextCANNumber);
 
         CANNumberEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -851,7 +833,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
         } else {
             intent = new Intent(MainActivity.this, SubMainActivity.class);
         }
-        builder.setPositiveButton("Đọc thẻ", (dialog, which) -> {
+        confirmModal.setOnClickListener(v ->{
             String CANNumber = CANNumberEditText.getText().toString();
 
             if (CANNumber.matches("\\d{6}")) {
@@ -862,10 +844,26 @@ import retrofit2.converter.gson.GsonConverterFactory;
             }
             dialog.dismiss();
         });
+//        builder.setPositiveButton("Đọc thẻ", (dialog, which) -> {
+//            String CANNumber = CANNumberEditText.getText().toString();
+//
+//            if (CANNumber.matches("\\d{6}")) {
+//                writeCAN(this, CANNumber);
+//                startActivity(intent);
+//            } else {
+//                toastContainer.showToast(MainActivity.this, "Vui lòng nhập đúng 6 số cuối CCCD");
+//            }
+//            dialog.dismiss();
+//        });
 
-        builder.setNegativeButton("Đóng", (dialog, which) -> {
+        cancelModal.setOnClickListener(v ->{
             dialog.dismiss();
+
         });
+
+//        builder.setNegativeButton("Đóng", (dialog, which) -> {
+//            dialog.dismiss();
+//        });
 
         builder.setOnCancelListener(dialog -> {
             intent.putExtra("CANNumber", "");
@@ -880,64 +878,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
         dialog.show();
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        if (mDecodeReader == null) {
-//            mDecodeReader = new DecodeReader(this);
-//        }
-//    }
-//
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        if (mDecodeReader != null) {
-//            mDecodeReader.close();
-//        }
-//    }
-//
-//    public void openHardener() {
-//        int ret = mDecodeReader.open(115200);
-//        if (ret == ResultCode.SUCCESS) {
-//            mDecodeReader.setDecodeReaderListener(listener);
-//        }
-//    }
-//
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//    }
-//
-//    private final IDecodeReaderListener listener = data -> {
-//        try {
-//            if (data != null) {
-//                final String dataQRScan = new String(data, StandardCharsets.UTF_8);
-//                if (dataQRScan.length() - dataQRScan.replace("|", "").length() != 6) {
-//                    runOnUiThread(() -> showToast("Mã QR không đúng định dạng"));
-//                    return;
-//                }
-//
-//                String CANQr;
-//                if (!dataQRScan.isEmpty()) {
-//                    String[] parts = dataQRScan.split("\\|");
-//
-//                    if (parts.length > 0) {
-//                        CANQr = getLastSixDigits(parts[0]);
-//                        if (CANQr.matches("\\d{6}")) {
-//                            writeQRCode(this, CANQr);
-//                            runOnUiThread(() -> navigateToSubMainActivity(this));
-//                        } else {
-//                            runOnUiThread(() -> showToast("Mã QR không đúng định dạng"));
-//                        }
-//                    }
-//                }
-//            }
-//        } catch (Exception e) {
-//            runOnUiThread(() -> showToast("Đã xảy ra lỗi khi đọc mã QR"));
-//            FileLogger.logToFile(this, "Error:" + e.getMessage());
-//        }
-//    };
-
     private void showToast(String message) {
         long currentTime = System.currentTimeMillis();
         long TOAST_INTERVAL = 3000;
@@ -946,17 +886,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
             lastToastTime = currentTime;
         }
     }
-
-//    private void navigateToSubMainActivity(Context context) {
-//        mDecodeReader.close();
-//        getConfigValidations(context);
-//        if (checkFaceCompare) {
-//            intent = new Intent(context, CameraActivity.class);
-//        } else {
-//            intent = new Intent(context, SubMainActivity.class);
-//        }
-//        startActivity(intent);
-//    }
 
 
     private void initView() {

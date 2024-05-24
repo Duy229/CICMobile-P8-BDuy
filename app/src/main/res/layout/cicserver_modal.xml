@@ -1,84 +1,311 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:orientation="horizontal"
-        android:paddingHorizontal="16dp">
-
-        <EditText
-            android:id="@+id/urlCICServer"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Nhập URL CICServer"
-            android:inputType="textUri"
-            android:textSize="14sp" />
-
-        <Button
-            android:id="@+id/checkHealth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Kiểm tra"
-            android:textSize="14sp" />
-        <Button
-            android:id="@+id/saveUrlServer"
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Lưu"
-            android:textSize="14sp" />
-    </LinearLayout>
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:orientation="vertical"
-        android:paddingHorizontal="16dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <Switch
-            android:id="@+id/switchWebsocket"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimary"
-            android:backgroundTintMode="@color/colorPrimary"
-            android:checked="false"
-            android:text="Web Socket"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
-
-        <LinearLayout
+        <TextView
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal">
+            android:text="Cấu Hình CICServer"
+            android:textColor="@color/colorPrimary"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            />
+
+            <!--btn-->
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                 <Button
+                     android:id="@+id/switchServerBtn"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="CICServer"
+                     android:background="@drawable/bg_transparent_ripple"
+                     android:textSize="14sp"
+                        android:textColor="#8A8A8A"
+                     android:visibility="gone"
+                     android:width="100dp"/>
+
+                    <Button
+                        android:id="@+id/serverColoredBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:width="100dp"
+                        android:background="@drawable/gradientblue_ripple"
+                        android:text="CICServer"
+                        android:textColor="@color/colorPrimary900"
+                        android:textSize="14sp"
+                        android:visibility="visible" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/switchSocketBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:width="100dp"
+                        android:background="@drawable/bg_transparent_ripple"
+                        android:text="SOCKET"
+                        android:textColor="#8A8A8A"
+                        android:textSize="14sp"
+                        android:visibility="visible" />
+                <Button
+                     android:id="@+id/socketColoredBtn"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="SOCKET"
+                    android:textColor="@color/colorPrimary900"
+                    android:background="@drawable/gradientblue_ripple"
+                    android:width="100dp"
+                     android:textSize="14sp"
+                    android:visibility="gone"
+                    />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        <!--edit text-->
+        <LinearLayout
+            android:paddingTop="30dp"
+            android:id="@+id/serverEdit_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:visibility="visible"
+            android:orientation="vertical">
 
             <EditText
-                android:id="@+id/urlWebsocket"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Nhập URL Websocket"
-                android:inputType="textUri"
-                android:textSize="14sp" />
+                android:id="@+id/serverEditText"
+                android:layout_width="290dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/eddittext_white"
+                android:hint="Nhập URL CICServer"
+                android:textColorHint="#AAAAAA"
+                android:paddingLeft="10dp"
+                android:layout_marginBottom="30dp"/>
 
-            <Button
-                android:id="@+id/saveWebSocket"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lưu"
-                android:textSize="14sp" />
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:visibility="visible"
+                >
 
+                <Button
+                    android:id="@+id/serverCancelBtn"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:width="100dp"
+                    android:background="@drawable/bg_transparent_ripple"
+                    android:text="HỦY BỎ"
+                    android:textColor="#8A8A8A"
+                    android:textSize="14sp"
+                    android:visibility="visible" />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="10dp">
+
+                        <Button
+                            android:id="@+id/checkConfirmBtn"
+                            android:layout_width="140dp"
+                            android:layout_height="wrap_content"
+                            android:width="100dp"
+                            android:background="@drawable/gradientblue_ripple"
+                            android:text="ĐỒNG Ý"
+                            android:textColor="@color/colorPrimary900"
+                            android:textSize="14sp"
+                            android:visibility="visible" />
+
+                        <Button
+                            android:id="@+id/serverConfirmBtn"
+                            android:layout_width="140dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/gradientblue_ripple"
+                            android:width="100dp"
+                            android:text="LƯU"
+                            android:textColor="@color/colorPrimary900"
+                            android:textSize="14sp"
+                            android:visibility="gone" />
+
+
+                    </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/socketEdit_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical"
+            android:visibility=""
+            >
+            <Switch
+                android:id="@+id/switchWebsocket"
+                android:height="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimary"
+                android:backgroundTintMode="@color/colorPrimary"
+                android:checked="false"
+                android:text="Web Socket"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/socketEditText"
+                android:layout_width="290dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/eddittext_white"
+                android:hint="Nhập URL Websocket"
+                android:textColorHint="#AAAAAA"
+                android:paddingLeft="10dp"
+                android:layout_marginBottom="30dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/socketCancelBtn"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:width="100dp"
+                    android:background="@drawable/bg_transparent_ripple"
+                    android:text="HỦY BỎ"
+                    android:textColor="#8A8A8A"
+                    android:textSize="14sp"
+                    android:visibility="visible" />
+
+                <Button
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/socketConfirmBtn"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:width="100dp"
+                    android:background="@drawable/gradientblue_ripple"
+                    android:text="ĐỒNG Ý"
+                    android:textColor="@color/colorPrimary900"
+                    android:textSize="14sp"
+                    android:visibility="visible" />
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
 
 
-</LinearLayout>
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:paddingHorizontal="16dp">-->
+
+<!--        <EditText-->
+<!--            android:id="@+id/urlCICServer"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:hint="Nhập URL CICServer"-->
+<!--            android:inputType="textUri"-->
+<!--            android:textSize="14sp" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/checkHealth"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Kiểm tra"-->
+<!--            android:textSize="14sp" />-->
+<!--        <Button-->
+<!--            android:id="@+id/saveUrlServer"-->
+<!--            android:visibility="gone"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Lưu"-->
+<!--            android:textSize="14sp" />-->
+<!--    </LinearLayout>-->
+
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:orientation="vertical"-->
+<!--        android:paddingHorizontal="16dp">-->
+
+<!--        <Switch-->
+<!--            android:id="@+id/switchWebsocket"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:backgroundTint="@color/colorPrimary"-->
+<!--            android:backgroundTintMode="@color/colorPrimary"-->
+<!--            android:checked="false"-->
+<!--            android:text="Web Socket"-->
+<!--            android:textColor="@color/colorPrimary"-->
+<!--            android:textSize="16sp" />-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <EditText-->
+<!--                android:id="@+id/urlWebsocket"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:hint="Nhập URL Websocket"-->
+<!--                android:inputType="textUri"-->
+<!--                android:textSize="14sp" />-->
+
+<!--            <Button-->
+<!--                android:id="@+id/saveWebSocket"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Lưu"-->
+<!--                android:textSize="14sp" />-->
+
+<!--        </LinearLayout>-->
+<!--    </LinearLayout>-->
+
+
+</androidx.cardview.widget.CardView>

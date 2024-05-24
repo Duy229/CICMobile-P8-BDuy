@@ -6,26 +6,79 @@
     android:orientation="vertical"
     android:padding="16dp"
     >
+
+    <TextView
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cấu Hình Xác Thực"
+        android:gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:textSize="22sp"/>
+
     <CheckBox
+        android:layout_marginLeft="20dp"
         android:id="@+id/checkbox1"
+        android:padding="14dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Toàn vẹn dữ liệu" />
 
     <CheckBox
+        android:layout_marginLeft="20dp"
         android:id="@+id/checkbox2"
+        android:padding="14dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Xác thực Bộ công an" />
     <CheckBox
         android:id="@+id/checkbox3"
+        android:padding="14dp"
+        android:layout_marginLeft="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Xác thực hình ảnh" />
     <CheckBox
         android:id="@+id/checkbox4"
+        android:layout_marginLeft="20dp"
+        android:padding="14dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Kiểm tra người thật"/>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        >
+
+        <Button
+            android:id="@+id/canCancelBtn"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:width="100dp"
+            android:background="@drawable/bg_transparent_ripple"
+            android:text="HỦY BỎ"
+            android:textColor="#8A8A8A"
+            android:textSize="14sp"
+            android:visibility="visible" />
+
+        <Button
+            android:layout_marginLeft="10dp"
+            android:id="@+id/canConfirmBtn"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:width="100dp"
+            android:background="@drawable/gradientblue_ripple"
+            android:text="ĐỒNG Ý"
+            android:textColor="@color/colorPrimary900"
+            android:textSize="14sp"
+            android:visibility="visible" />
+
+    </LinearLayout>
 
 </LinearLayout>
