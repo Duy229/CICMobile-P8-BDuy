@@ -53,6 +53,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -337,13 +338,27 @@ import retrofit2.converter.gson.GsonConverterFactory;
         Button socketCancelBtn = view.findViewById(R.id.socketCancelBtn);
         Button  socketConfirmBtn= view.findViewById(R.id.socketConfirmBtn);
         EditText serverEditText = view.findViewById(R.id.serverEditText);
-        EditText socketEditText = view.findViewById(R.id.socketEditText);
+
         View socketEdit = view.findViewById(R.id.socketEdit_layout);
         View serverEdit = view.findViewById(R.id.serverEdit_layout);
 
         String baseUrl = readBaseUrl(MainActivity.this);
         String webSocketUrl = readUrlWebsocket(this);
         UpdateUrl updateUrl = new UpdateUrl();
+
+        Switch switchWebsocket = view.findViewById(R.id.switchWebsocket);
+        EditText socketEditText = view.findViewById(R.id.socketEditText);
+
+// Disable EditText initially
+        socketEditText.setEnabled(false);
+
+        switchWebsocket.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // Enable or disable EditText based on Switch state
+                socketEditText.setEnabled(isChecked);
+            }
+        });
 
 
         if (baseUrl != null){
@@ -377,6 +392,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
         socketCancelBtn.setOnClickListener(v ->{
             dialog.dismiss();
         });
+
+
 
         checkConfirmBtn.setOnClickListener(v -> {
             updateUrl.setNewUrl(serverEditText.getText().toString());
@@ -430,6 +447,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
             }
 
         });
+
+
 
         builder.setView(view);
 
